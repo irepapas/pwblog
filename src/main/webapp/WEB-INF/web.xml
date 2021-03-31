@@ -17,7 +17,7 @@
         <user>app</user>
         <password>app</password>
     </data-source>
-    
+
     <session-config>
         <session-timeout>
             30
