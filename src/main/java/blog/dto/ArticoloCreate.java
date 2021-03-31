@@ -17,5 +17,10 @@ public class ArticoloCreate {
     public String titlo;
     @NotEmpty
     public String articolo;
+
+    public ArticoloCreate() {
+    }
+    
+    
     
 }

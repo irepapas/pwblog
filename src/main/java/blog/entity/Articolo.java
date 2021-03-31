@@ -39,9 +39,10 @@ public class Articolo extends AbstractEntity implements Serializable{
     public Articolo() {
     }
     
-    public Articolo(ArticoloCreate a){
+    public Articolo(ArticoloCreate a,User userId){
         this.titlo = a.titlo;
         this.articolo = a.articolo;
+        this.userId = userId;
         
     }
 
