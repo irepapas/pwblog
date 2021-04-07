@@ -5,9 +5,13 @@
  */
 package blog.entity;
 
+import blog.control.UserStore;
 import java.time.LocalDateTime;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 /**
  *
@@ -15,13 +19,30 @@ import javax.persistence.PreUpdate;
  */
 public class EntityListener {
     
+   @Inject
+    UserStore userStore;
+
+    @Inject
+    JsonWebToken jwt;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("init entity listener..");
+    }
+
     @PrePersist
-    public void onPrePersist(AbstractEntity e){
+    public void onPrePersist(AbstractEntity e) {
+        if (jwt != null && jwt.getSubject() != null) {
+            e.setCreatedBy(userStore.find(Long.parseLong(jwt.getSubject())).get());
+        }
         e.setCreatedOn(LocalDateTime.now());
     }
-    
+
     @PreUpdate
-    public void onPreUpdate(AbstractEntity e){
+    public void onPreUpdate(AbstractEntity e) {
+        if (jwt != null && jwt.getSubject() != null) {
+            e.setCreatedBy(userStore.find(Long.parseLong(jwt.getSubject())).get());
+        }
         e.setModifiedOn(LocalDateTime.now());
     }
     

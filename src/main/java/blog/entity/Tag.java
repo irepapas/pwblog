@@ -31,7 +31,7 @@ public class Tag implements Serializable{
     @Column(nullable = false)
     private String tagName;
     @ManyToMany
-    private Articolo articoloId;
+    private Long articoloId;
 
     public Tag() {
     }
@@ -56,11 +56,11 @@ public class Tag implements Serializable{
         this.tagName = tagName;
     }
 
-    public Articolo getArticoloId() {
+    public Long getArticoloId() {
         return articoloId;
     }
 
-    public void setArticoloId(Articolo articoloId) {
+    public void setArticoloId(Long articoloId) {
         this.articoloId = articoloId;
     }
 

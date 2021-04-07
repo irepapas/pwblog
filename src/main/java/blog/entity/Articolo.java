@@ -6,13 +6,13 @@
 package blog.entity;
 
 import blog.dto.ArticoloCreate;
+import blog.dto.ArticoloUpdate;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,19 +30,17 @@ public class Articolo extends AbstractEntity implements Serializable{
     protected Long id;
     
     @Column(nullable = false)
-    private String titlo;
+    private String titolo;
     @Column(nullable = false)
     private String articolo;
-    @ManyToOne(optional = false)
-    private User userId;
+   
 
     public Articolo() {
     }
     
-    public Articolo(ArticoloCreate a,User userId){
-        this.titlo = a.titlo;
+    public Articolo(ArticoloCreate a){
+        this.titolo = a.titolo;
         this.articolo = a.articolo;
-        this.userId = userId;
         
     }
 
@@ -53,13 +51,21 @@ public class Articolo extends AbstractEntity implements Serializable{
     public void setArticolo(String articolo) {
         this.articolo = articolo;
     }
-
-    public String getTitlo() {
-        return titlo;
+    
+    public void setArticolo (ArticoloUpdate a){
+         this.articolo = a.articolo == null ? this.articolo : a.articolo;
     }
 
-    public void setTitlo(String titlo) {
-        this.titlo = titlo;
+    public String getTitlo() {
+        return titolo;
+    }
+
+    public void setTitlo(String titolo) {
+        this.titolo = titolo;
+    }
+    
+    public void setTitolo (ArticoloUpdate a){
+        this.titolo = a.titolo == null ? this.titolo : a.titolo;
     }
 
     public Long getId() {

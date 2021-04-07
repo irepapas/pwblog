@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
  *
@@ -27,6 +28,12 @@ public class CommentiStore {
     ArticoloStore articoloStore;
     @PersistenceContext
     EntityManager em;
+    @Inject
+    @ConfigProperty(name = "maxResult", defaultValue = "10")
+    int maxResult;
+    @Inject
+    UserStore userStore;
+
     
      public List<Commento> searchByArticolo(Long articoloId){
         return em.createQuery("select e from Commento e where e.articolo.id= :articoloId  order by e.createdOn", Commento.class)

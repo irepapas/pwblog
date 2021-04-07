@@ -24,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class User extends AbstractEntity implements Serializable{
     
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", initialValue = 1, allocationSize = 1)
@@ -45,6 +45,7 @@ public class User implements Serializable{
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
     private boolean bloccato = false;
+    private boolean eliminato= false;
 
     public User() {
     }
@@ -115,6 +116,16 @@ public class User implements Serializable{
     public void setBloccato(boolean bloccato) {
         this.bloccato = bloccato;
     }
+
+    public boolean isEliminato() {
+        return eliminato;
+    }
+
+    public void setEliminato(boolean eliminato) {
+        this.eliminato = eliminato;
+    }
+    
+    
 
     public Long getId() {
         return id;

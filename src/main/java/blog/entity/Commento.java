@@ -5,7 +5,7 @@
  */
 package blog.entity;
 
-import blog.dto.CommentoCreate;
+
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -38,20 +38,21 @@ public class Commento extends AbstractEntity implements Serializable {
     @Column(nullable = false)
     private Valutazione valutazione;
     @ManyToOne(optional = false)
-    private Articolo articoloId;
+    private Long articoloId;
     @ManyToOne(optional = false)
-    private User userId;
+    private Long userId;
     @ManyToOne
     private Commento commentRefId;
 
     public Commento() {
     }
-    
-    public Commento(CommentoCreate c){
-        this.textComment= c.textComment;
-        this.articoloId = c.articoloId;
-        this.userId = c.userId;
+
+    public Commento(String textComment, Valutazione valutazione) {
+        this.textComment = textComment;
+        this.valutazione = valutazione;
     }
+    
+   
 
     public Long getId() {
         return id;
@@ -77,19 +78,19 @@ public class Commento extends AbstractEntity implements Serializable {
         this.valutazione = valutazione;
     }
 
-    public Articolo getArticoloId() {
+    public Long getArticoloId() {
         return articoloId;
     }
 
-    public void setArticoloId(Articolo articoloId) {
+    public void setArticoloId(Long articoloId) {
         this.articoloId = articoloId;
     }
 
-    public User getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

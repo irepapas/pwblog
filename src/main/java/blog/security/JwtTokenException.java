@@ -3,24 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blog.dto;
-
-import javax.validation.constraints.NotEmpty;
+package blog.security;
 
 /**
  *
  * @author Irene
  */
-public class ArticoloCreate {
+public class JwtTokenException extends RuntimeException{
     
-    @NotEmpty
-    public String titolo;
-    @NotEmpty
-    public String articolo;
-
-    public ArticoloCreate() {
+    public JwtTokenException(String message) {
+        super(message);
     }
-    
     
     
 }

@@ -5,22 +5,21 @@
  */
 package blog.dto;
 
-import javax.validation.constraints.NotEmpty;
-
 /**
  *
  * @author Irene
  */
-public class ArticoloCreate {
-    
-    @NotEmpty
+public class ArticoloUpdate {
     public String titolo;
-    @NotEmpty
     public String articolo;
 
-    public ArticoloCreate() {
+    public ArticoloUpdate() {
     }
-    
+
+    public ArticoloUpdate(String titolo, String articolo) {
+        this.titolo = titolo;
+        this.articolo = articolo;
+    }
     
     
 }
