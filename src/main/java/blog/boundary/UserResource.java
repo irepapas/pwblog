@@ -13,7 +13,9 @@ import blog.dto.UserUpdate;
 import blog.entity.Articolo;
 import blog.entity.Commento;
 import blog.entity.User;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -77,13 +79,30 @@ public class UserResource {
     @Path("articles")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createArticle(ArticoloCreate article, ArrayList<String> tags) {
+    public Response creaArticolo(ArticoloCreate article, ArrayList<String> tags) {
         User user = userStore.find(userId).orElseThrow(() -> new NotFoundException());
         Articolo saved = articoloStore.create(new Articolo(article), tags);
         return Response.status(Response.Status.CREATED)
                 .entity(saved)
                 .build();
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Commento> commentiArticolo(Long idArticolo) {
+        return commentiStore.cercaArticolo(idArticolo);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Commento> userCommentiArticolo(Long idArticolo) {
+        return commentiStore.cercaUserAndArticolo(idArticolo,userId);
+    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Articolo> cercaArticoloPeriodo(LocalDateTime start, LocalDateTime stop) {
+        return articoloStore.cercaPeriodo(start, stop);
+    }
+    
     @POST
     @Path("comments")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -96,6 +115,13 @@ public class UserResource {
                 .entity(saved)
                 .build();
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Commento> cercaCommentoPeriodo(LocalDateTime start, LocalDateTime stop) {
+        return commentiStore.cercaPeriodo(start, stop);
+    }
+    
 
     public Long getUserId() {
         return userId;

@@ -43,6 +43,7 @@ public class Commento extends AbstractEntity implements Serializable {
     private Long userId;
     @ManyToOne
     private Commento commentRefId;
+    private boolean visibile = true;
 
     public Commento() {
     }
@@ -102,6 +103,14 @@ public class Commento extends AbstractEntity implements Serializable {
         this.commentRefId = commentRefId;
     }
 
+    public boolean isVisibile() {
+        return visibile;
+    }
+
+    public void setVisibile(boolean visibile) {
+        this.visibile = visibile;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

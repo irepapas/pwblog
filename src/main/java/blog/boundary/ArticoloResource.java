@@ -9,6 +9,8 @@ import blog.control.ArticoloStore;
 import blog.control.CommentiStore;
 import blog.dto.ArticoloUpdate;
 import blog.entity.Articolo;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -50,6 +52,18 @@ public class ArticoloResource {
         Articolo found = articoloStore.find(articleId).orElseThrow(() -> new NotFoundException());
         Articolo updated = articoloStore.update(found, artUp);
         return updated;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Articolo> articoliPerPeriodo(LocalDateTime start, LocalDateTime stop) {
+        return articoloStore.cercaPeriodo(start, stop);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Articolo> allByTitle(String titolo) {
+        return articoloStore.findByTitle(titolo);
     }
 
 

@@ -8,6 +8,7 @@ package blog.control;
 import blog.dto.ArticoloUpdate;
 import blog.entity.Articolo;
 import blog.entity.Tag;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +68,10 @@ public class ArticoloStore {
                 .setParameter("titolo", titolo == null ? "%" : "%" + titolo + "%")
                 .getResultList();
     }
+     public List<Articolo> cercaPeriodo(LocalDateTime start, LocalDateTime stop) {
+        return em.createQuery("select e from Articolo e where e.createdOn>= :start and e.createdOn<=stop order by e.createdOn", Articolo.class)
+                .getResultList();
+    }
     
-   
    
 }
